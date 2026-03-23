@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESL Immersion Workbook - Complete Edition</title>
+    <style>
+        /* --- General Reset & Typography --- */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Playfair+Display:wght@700&display=swap');
+
+        :root {
+            --primary-blue: #1e3a8a;
+            --accent-gold: #d97706;
+            --light-blue: #eff6ff;
+            --text-dark: #1f2937;
+            --text-light: #4b5563;
+        }
+
+        body {
+            font-family: 'Noto Sans', sans-serif;
+            color: var(--text-dark);
+            line-height: 1.5;
+            margin: 0;
+            padding: 0;
+            background: #f3f4f6;
+        }
+
+        /* --- Container for Screen View --- */
+        .book-container {
+            max-width: 210mm;
+            margin: 40px auto;
+            background: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        /* --- Page Structure --- */
+        .page {
+            width: 100%;
+            min-height: 297mm;
+            padding: 20mm;
+            box-sizing: border-box;
+            position: relative;
+            page-break-after: always;
+            border-bottom: 4px solid #e5e7eb;
+            background: white;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- Headers & Titles --- */
+        .chapter-header {
+            border-left: 8px solid var(--accent-gold);
+            padding-left: 20px;
+            margin-bottom: 30px;
+        }
+
+        .chapter-number {
+            color: var(--accent-gold);
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+        }
+
+        .chapter-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--primary-blue);
+            margin: 5px 0 5px 0;
+            line-height: 1.1;
+        }
+
+        .page-type {
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: #9ca3af;
+            text-transform: uppercase;
+            margin-top: 5px;
+        }
+
+        /* --- Vocabulary Box --- */
+        .vocab-box {
+            background-color: var(--light-blue);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+            border: 1px solid #bfdbfe;
+        }
+
+        .section-title {
+            color: var(--primary-blue);
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            margin-bottom: 15px;
+            border-bottom: 2px solid var(--accent-gold);
+            display: inline-block;
+            padding-bottom: 3px;
+        }
+
+        .vocab-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .vocab-item strong {
+            color: var(--primary-blue);
+            display: block;
+        }
+
+        .vocab-item span {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            font-style: italic;
+        }
+
+        /* --- Dialogue --- */
+        .dialogue-container { margin-bottom: 20px; }
+        .speech-bubble {
+            margin-bottom: 12px;
+            padding: 12px 18px;
+            border-left: 4px solid #ccc;
+            background: #fff;
+        }
+        .speaker-a { border-left-color: var(--accent-gold); background-color: #fffbeb; }
+        .speaker-b { border-left-color: var(--primary-blue); background-color: #eff6ff; }
+        .speaker-label { font-weight: bold; font-size: 0.8rem; text-transform: uppercase; margin-bottom: 4px; }
+        .speaker-a .speaker-label { color: #92400e; }
+        .speaker-b .speaker-label { color: #1e40af; }
+
+        /* --- Speaking Activities --- */
+        .activity-box {
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 25px;
+            background: #fff;
+        }
+        .activity-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--primary-blue);
+            margin-bottom: 15px;
+        }
+        .activity-badge {
+            background: var(--accent-gold);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+        }
+        .instruction {
+            font-style: italic;
+            color: #555;
+            margin-bottom: 15px;
+        }
+        .drill-list li { margin-bottom: 10px; }
+        
+        .line-blank {
+            display: inline-block;
+            border-bottom: 1px solid #333;
+            width: 100px;
+            margin: 0 5px;
+        }
+        .card-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .role-card {
+            border: 2px dashed #9ca3af;
+            padding: 15px;
+            background: #f9fafb;
+        }
+
+        /* --- Upside Down Answer Key --- */
+        .answer-key {
+            margin-top: auto;
+            padding-top: 20px;
+            font-size: 0.75rem;
+            color: #9ca3af;
+            border-top: 1px dashed #e5e7eb;
+            transform: rotate(180deg);
+            text-align: left;
+        }
+        .answer-key strong { color: #6b7280; }
+
+        /* --- Cover Page --- */
+        .cover-page {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: var(--primary-blue);
+            color: white;
+            border-bottom: 10mm solid var(--accent-gold);
+        }
+        .cover-title { font-size: 4rem; line-height: 1.1; margin-bottom: 20px; }
+        .cover-subtitle { font-size: 1.5rem; color: var(--accent-gold); letter-spacing: 3px; text-transform: uppercase; }
+
+        @media print {
+            body { background: white; }
+            .book-container { width: 100%; max-width: none; margin: 0; box-shadow: none; }
+            .page { border-bottom: none; height: auto; min-height: 297mm; }
+            * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="book-container">
+
+    <!-- COVER PAGE -->
+    <div class="page cover-page">
+        <div style="font-size: 6rem; color: var(--accent-gold); margin-bottom: 20px;">&#128483;</div>
+        <h1 class="cover-title">Immersion<br>English</h1>
+        <h2 class="cover-subtitle">Complete Survival Workbook</h2>
+        <p style="margin-top: 40px; font-size: 1.2rem; opacity: 0.9;">16 Essential Real-World Scenarios for Adult Learners</p>
+        <div style="margin-top: auto; padding-bottom: 20px; opacity: 0.7;">
+            &copy; 2026 English Master Series
+        </div>
+    </div>
+
+    <!-- ========================================= -->
+    <!-- TABLE OF CONTENTS -->
+    <!-- ========================================= -->
+    <div class="page">
+        <header class="chapter-header">
+            <h2 class="chapter-title">Table of Contents</h2>
+            <div class="page-type">Course Overview</div>
+        </header>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 30px;">
+            <!-- Module 1 -->
+            <div>
+                <h3 style="color: var(--primary-blue); border-bottom: 2px solid var(--accent-gold); padding-bottom: 5px; text-transform: uppercase; font-size: 1rem;">Module 1: Daily Survival</h3>
+                <ul style="list-style: none; padding: 0; line-height: 2.2; font-size: 1.1rem;">
+                    <li><strong style="color: var(--accent-gold);">01.</strong> Meeting New People</li>
+                    <li><strong style="color: var(--accent-gold);">02.</strong> Ordering Coffee</li>
+                    <li><strong style="color: var(--accent-gold);">03.</strong> Asking Directions</li>
+                    <li><strong style="color: var(--accent-gold);">04.</strong> Job Interview</li>
+                    <li><strong style="color: var(--accent-gold);">05.</strong> At the Restaurant</li>
+                    <li><strong style="color: var(--accent-gold);">06.</strong> Grocery Shopping</li>
+                </ul>
+            </div>
+            
+            <!-- Module 2 -->
+            <div>
+                <h3 style="color: var(--primary-blue); border-bottom: 2px solid var(--accent-gold); padding-bottom: 5px; text-transform: uppercase; font-size: 1rem;">Module 2: The System</h3>
+                <ul style="list-style: none; padding: 0; line-height: 2.2; font-size: 1.1rem;">
+                    <li><strong style="color: var(--accent-gold);">07.</strong> Travel & Airport</li>
+                    <li><strong style="color: var(--accent-gold);">08.</strong> Booking a Hotel</li>
+                    <li><strong style="color: var(--accent-gold);">09.</strong> At the Doctor</li>
+                    <li><strong style="color: var(--accent-gold);">10.</strong> Banking & Money</li>
+                    <li><strong style="color: var(--accent-gold);">11.</strong> Housing & Landlords</li>
+                </ul>
+            </div>
+
+            <!-- Module 3 -->
+            <div style="grid-column: 1 / -1; margin-top: -10px;">
+                <h3 style="color: var(--primary-blue); border-bottom: 2px solid var(--accent-gold); padding-bottom: 5px; text-transform: uppercase; font-size: 1rem;">Module 3: High Stakes & Community</h3>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
+                    <ul style="list-style: none; padding: 0; line-height: 2.2; font-size: 1.1rem;">
+                        <li><strong style="color: var(--accent-gold);">12.</strong> Returns & Service</li>
+                        <li><strong style="color: var(--accent-gold);">13.</strong> Public Transit</li>
+                        <li><strong style="color: var(--accent-gold);">14.</strong> Telephone Calls</li>
+                    </ul>
+                    <ul style="list-style: none; padding: 0; line-height: 2.2; font-size: 1.1rem;">
+                        <li><strong style="color: var(--accent-gold);">15.</strong> Emergencies & 911</li>
+                        <li><strong style="color: var(--accent-gold);">16.</strong> Small Talk</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div style="margin-top: auto; padding: 20px; background: #fffbeb; border: 1px solid #fcd34d; border-radius: 8px; text-align: center; font-style: italic; color: #92400e;">
+            "Language is not a test to pass; it is a tool to survive and connect. Speak loudly, make mistakes, and keep trying."
+        </div>
+    </div>
+
+    <!-- ========================================= -->
+    <!-- CHAPTER 1: MEETING NEW PEOPLE -->
+    <!-- ========================================= -->
+    <div class="page">
+        <header class="chapter-header"><div class="chapter-number">Chapter 01</div><h2 class="chapter-title">Meeting New People</h2><div class="page-type">Vocabulary & Dialogue</div></header>
+        <section class="vocab-box"><div class="section-title">Key Vocabulary</div><div class="vocab-grid">
+            <div class="vocab-item"><strong>To Introduce</strong><span>To tell someone your name.</span></div>
+            <div class="vocab-item"><strong>Pleasure</strong><span>A happy feeling.</span></div>
+            <div class="vocab-item"><strong>Originally</strong><span>In the beginning / where you were born.</span></div>
+            <div class="vocab-item"><strong>Hometown</strong><span>The city where you grew up.</span></div>
+            <div class="vocab-item"><strong>Colleague</strong><span>A person you work with.</span></div>
+            <div class="vocab-item"><strong>To Meet</strong><span>To see someone for the first time.</span></div>
+        </div></section>
+        <section class="dialogue-container"><div class="section-title">Conversation</div>
+            <div class="speech-bubble speaker-a"><div class="speaker-label">Sarah</div><div>Hello! My name is Sarah. It's nice to meet you.</div></div>
+            <div class="speech-bubble speaker-b"><div class="speaker-label">David</div><div>Hi Sarah. I'm David. Nice to meet you too.</div></div>
+            <div class="speech-bubble speaker-a"><div class="speaker-label">Sarah</div><div>Where are you from, David?</div></div>
+            <div class="speech-bubble speaker-b"><div class="speaker-label">David</div><div>I am from Canada. And you?</div></div>
+            <div class="speech-bubble speaker-a"><div class="speaker-label">Sarah</div><div>I'm originally from Spain, but I live here now.</div></div>
+        </section>
+        <div style="margin-top: 40px; padding: 20px; background: #fff7ed; border-left: 5px solid #d97706;">
+            <strong>Grammar Note:</strong><br>I am from [Country/City].<br>I live in [Country/City].
+        </div>
+    </div>
+    <div class="page">
+        <header class="chapter-header"><div class="chapter-number">Chapter 01</div><h2 class="chapter-title">Meeting New People</h2><div class="page-type">Speaking Practice I: Drills</div></header>
+        <div class="activity-box"><div class="activity-header"><span class="activity-badge">Drill</span> Substitution Chain</div>
+            <p class="instruction">Read the sentence aloud. Replace the underlined word with the new words below.</p>
+            <div style="font-size: 1.4rem; text-align: center; margin: 20px 0; font-weight: bold;">"I am from <u>Spain</u>."</div>
+            <ul style="list-style: none; text-align: center; line-height: 2;"><li>&rarr; France</li><li>&rarr; Japan</li><li>&rarr; The United States</li><li>&rarr; Brazil</li></ul>
+        </div>
+        <div class="activity-box"><div class="activity-header"><span class="activity-badge">Pair Work</span> Rapid Questions</div>
+            <p class="instruction">Ask your partner these questions fast. Don't look at the paper if possible!</p>
+            <ul class="drill-list"><li>1. What is your name?</li><li>2. Where are you from?</li><li>3. Where do you live now?</li><li>4. Nice to meet you! (Reply)</li></ul>
+        </div>
+        <div class="answer-key"><strong>Answers (Substitution):</strong> I am from France. / I am from Japan. / I am from The United States. / I am from Brazil.<br><strong>Answers (Rapid Questions):</strong> 1. My name is... 2. I am from... 3. I live in... 4. Nice to meet you too.</div>
+    </div>
+    <div class="page">
+        <header class="chapter-header"><div class="chapter-number">Chapter 01</div><h2 class="chapter-title">Meeting New People</h2><div class="page-type">Speaking Practice II: Real Life</div></header>
+        <div class="activity-box"><div class="activity-header"><span class="activity-badge">Activity</span> The Cocktail Party</div>
+            <p class="instruction">Stand up! Walk around the room. Introduce yourself to 5 different people. Write their names and countries below.</p>
+            <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+                <tr style="background: #e5e7eb; text-align: left;"><th style="padding: 10px;">Name</th><th style="padding: 10px;">Country/City</th></tr>
+                <tr><td style="padding: 10px; border-bottom: 1px solid #ddd;">1.</td><td style="border-bottom: 1px solid #ddd;"></td></tr>
+                <tr><td style="padding: 10px; border-bottom: 1px solid #ddd;">2.</td><td style="border-bottom: 1px solid #ddd;"></td></tr>
+                <tr><td style="padding: 10px; border-bottom: 1px solid #ddd;">3.</td><td style="border-bottom: 1px solid #ddd;"></td></tr>
+                <tr><td style="padding: 10px; border-bottom: 1px solid #ddd;">4.</td><td style="border-bottom: 1px solid #ddd;"></td></tr>
+                <tr><td style="padding: 10px; border-bottom: 1px solid #ddd;">5.</td><td style="border-bottom: 1px solid #ddd;"></td></tr>
+            </table>
+        </div>
+        <div class="activity-box"><div class="activity-header"><span class="activity-badge">Role Play</span> The Business Meeting</div>
+            <div class="card-grid">
+                <div class="role-card"><strong>Student A: The Boss</strong><br><br>You are the boss of a big company. You are meeting a new employee. Ask them their name and where they are from. Welcome them to the team.</div>
+                <div class="role-card"><strong>Student B: The New Employee</strong><br><br>It is your first day. Introduce yourself politely. You are nervous but happy.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================= -->
+    <!-- CHAPTER 2: ORDERING COFFEE -->
+    <!-- ========================================= -->
+    <div class="page">
+        <header class="chapter-header"><div class="chapter-number">Chapter 02</div><h2 class="chapter-title">Ordering Coffee</h2><div class="page-type">Vocabulary & Dialogue</div></header>
+        <section class="vocab-box"><div class="section-title">Key Vocabulary</div><div class="vocab-grid">
+            <div class="vocab-item"><strong>To Order</strong><span>To ask for food or drink.</span></div>
+            <div class="vocab-item"><strong>Size</strong><span>Small, Medium, or Large.</span></div>
+            <div class="vocab-item"><strong>To Go</strong><span>Take it away (Takeaway).</span></div>
+            <div class="vocab-item"><strong>For Here</strong><span>Eat/Drink inside the cafe.</span></div>
+            <div class="vocab-item"><strong>Receipt</strong><span>The paper with the price.</span></div>
+            <div class="vocab-item"><strong>Change</strong><span>The money you get back.</span></div>
+        </div></section>
+        <section class="dialogue-container"><div class="section-title">Conversation</div>
+            <div class="speech-bubble speaker-a"><div class="speaker-label">Barista</div><div>Next, please! What can I get for you?</div></div>
+            <div class="speech-bubble speaker-b"><div class="speaker-label">Customer</div><div>Hi. I would like a cappuccino, please.</div></div>
+            <div class="speech-bubble speaker-a"><div class="speaker-label">Barista</div><div>Sure. What size would you like?</div></div>
+            <div class="speech-bubble speaker-b"><div class="speaker-label">Customer</div><div>A medium, please.</div></div>
+            <div class="speech-bubble speaker-a"><div class="speaker-label">Barista</div><div>For here or to go?</div></div>
+            <div class="speech-bubble speaker-b"><div class="speaker-label">Customer</div><div>To go, thanks.</div></div>
+        </section>
+    </div>
+    <div class="page">
+        <header class="chapter-header"><div class="chapter-number">Chapter 02</div><h2 class="chapter-title">Ordering Coffee</h2><div class="page-type">Speaking Practice I: The Menu</div></header>
+        <div class="activity-box" style="text-align: center; background: #fffbeb;">
+            <h3 style="margin-top:0; color: #92400e;">CAFE MENU</h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; text-align: left; padding: 10px;">
+                <div><strong>Drinks</strong><br>Coffee ...... $2.00<br>Latte ....... $3.50<br>Tea ......... $2.00<br>Water ....... $1.00</div>
+                <div><strong>Food</strong><br>Muffin ...... $2.50<br>Sandwich .... $5.00<br>Cookie ...... $1.50<br>Cake ........ $4.00</div>
+            </div>
+        </div>
+        <div class="activity-box"><div class="activity-header"><span class="activity-badge">Drill</span> Build the Order</div>
+            <p class="instruction">Work with a partner. Use the words below to make full sentences aloud.</p>
+            <p><strong>Example:</strong> "Coffee / Large" &rarr; <em>"I would like a large coffee, please."</em></p>
+            <ul class="drill-list"><li>1. Tea / Small / To go</li><li>2. Muffin / Blueberry / For here</li><li>3. Latte / Medium / With sugar</li><li>4. Sandwich / Chicken / To go</li></ul>
+        </div>
+        <div class="answer-key"><strong>Answers:</strong> 1. I would like a small tea to go, please. 2. I would like a blueberry muffin for here, please. 3. I would like a medium latte with sugar, please. 4. I would like a chicken sandwich to go, please.</div>
+    </div>
+    <div class="page">
+        <header class="chapter-header"><div class="chapter-number">Chapter 02</div><h2 class="chapter-title">Ordering Coffee</h2><div class="page-type">Speaking Practice II: Role Play</div></header>
+        <div class="activity-box"><div class="activity-header"><span class="activity-badge">Role Play</span> The Mistake</div>
+            <div class="card-grid">
+                <div class="role-card"><strong>Student A: The Customer</strong><br><br>You ordered a <span style="text-decoration: underline;">Large Coffee</span> with <span style="text-decoration: underline;">No Sugar</span>. The Barista gives you a Small Coffee with lots of sugar. Politely ask them to fix it.</div>
+                <div class="role-card"><strong>Student B: The Barista</strong><br><br>You are very busy and tired. You made a mistake. Apologize (say sorry) and fix the drink.</div>
+            </div>
+        </div>
+        <div class="activity-box"><div class="activity-header"><span class="activity-badge">Creative</span> Create your Cafe</div>
+            <p class="instruction">Describe your dream cafe to your partner.</p>
+            <p>My cafe is named: <span class="line-blank"></span></p>
+            <p>We serve the best: <span class="line-blank"></span></p>
+            <p>The music is: <span class="line-blank"></span></p>
+        </div>
+    </div>
+
+    <!-- ========================================= -->
+    <!-- CHAPTER 3: ASKING DIRECTIONS -->
+    <!-- ========================================= -->
+    <div class="page">
+        <header class="chapter-header"><div class="chapter-number">Chapter 03</div><h2 class="chapter-title">Asking Directions</h2><div class="page-type">Vocabulary & Dialogue</div></header>
+        <section class="vocab-box"><div class="section-title">Key Vocabulary</div><div class="vocab-grid">
+            <div class="vocab-item"><strong>Excuse me</strong><span>Polite way to start talking.</span></div>
+            <div class="vocab-item"><strong>Straight</strong><span>Move forward, don't turn.</span></div>
+            <div class="vocab-item"><strong>Turn Left/Right</strong><span>Change direction.</span></div>
+            <div class="vocab-item"><strong>Block</strong><span>The distance between two streets.</span></div>
+            <div class="vocab-item"><strong>Near</strong><span>Close to something.</span></div>
+            <div class="vocab-item"><strong>Corner</strong><span>Where two streets meet.</span></div>
+        </div></section>
+        <section class="dialogue-container"><div class="section-title">Conversation</div>
+            <div class="speech-bubble speaker-a"><div class="speaker-label">Tourist</div><div>Excuse me. Is there a supermarket near here?</div></div>
+            <div class="speech-bubble speaker-b"><div class="speaker-label">Local</div><div>Yes. Go straight for two blocks.</div></div>
+            <div class="speech-bubble speaker-a"><div class="speaker-label">Tourist</div><div>Okay. Straight for two blocks. Then?</div></div>
+            <div class="speech-bubble speaker-b"><div class="speaker-label">Local</div><div>Turn left at the bank. It's on the corner.</div></div>
+            <div class="speech-bubble speaker-a"><div class="speaker-label">Tourist</div><div>Thank you very much!</div></div>
+        </section>
+    </div>
+    <div class="page">
+        <header class="chapter-header"><div class="chapter-number">Chapter 03</div><h2 class="chapter-title">Asking Directions</h2><div class="page-type">Speaking Practice I: Map Work</div></header>
+        <div class="activity-box"><div class="activity-header"><span class="activity-badge">Drill</span> Prepositions of Place</div>
+            <p class="instruction">Look at items on your desk. Tell your partner where they are.</p>
+            <ul class="drill-list">
+                <li>"The pen is <strong>on</strong> the book."</li>
+                <li>"The bag is <strong>under</strong> the table."</li>
+                <li>"The phone is <strong>next to</strong> the computer."</li>
+            </ul>
+        </div>
+        <div class="activity-box"><div class="activity-header"><span class="activity-badge">Activity</span> Draw the Path</div>
+            <p class="instruction">Student A: Read the instructions below slowly.<br>Student B: Draw the line on a piece of paper. Do not look!</p>
+            <div style="background: #f3f4f6; padding: 15px; border-radius: 5px;">"Start at the bottom. Go straight. Turn right. Go straight again. Turn left. Stop."</div>
+        </div>
+        <div class="answer-key"><strong>Check (Activity 1):</strong> Ensure students are physically moving objects and saying the prepositions correctly out loud. Ensure subject-verb agreement (The pen IS... The pens ARE...).</div>
+    </div>
+    <div class="page">
+        <header class="chapter-header"><div class="chapter-number">Chapter 03</div><h2 class="chapter-title">Asking Directions</h2><div class="page-type">Speaking Practice II: Getting Lost</div></header>
+        <div class="activity-box"><div class="activity-header"><span class="activity-badge">Role Play</span> No Phone Battery</div>
+            <div class="card-grid">
+                <div class="role-card"><strong>Student A: The Lost Tourist</strong><br><br>You are in New York City. Your phone is dead. You need to find the <strong>Train Station</strong>. Stop a stranger and ask for help.</div>
+                <div class="role-card"><strong>Student B: The New Yorker</strong><br><br>You are walking fast. Someone stops you. Be helpful. Tell them to walk 3 blocks and turn right.</div>
+            </div>
+        </div>
+        <div class="activity-box"><div class="activity-header"><span class="activity-badge">Discussion</span> Your City</div>
+            <p class="instruction">Tell your partner about your city/town.</p>
+            <ul class="drill-list"><li>Is it easy to drive in your city?</li><li>Where is the best place to eat?</li><li>How do I get from your house to the nearest park?</li></ul>
+        </div>
+    </div>
+
+    <!-- ========================================= -->
+    <!-- CHAPTER 4: JOB INTERVIEW -->
+    <!-- ========================================= -->
+    <div class="page">
+        <header class="chapter-header"><div class="chapter-number">Chapter 04</div><h2 class="chapter-title">Job Interview</h2><div class="page-type">Vocabulary & Dialogue</div></header>
+        <section class="vocab-box"><div class="section-title">Key Vocabulary</div><div class="vocab-grid">
+            <div class="vocab-item"><strong>Experience</strong><span>Jobs you did in the past.</span></div>
+            <div class="vocab-item"><strong>Strength</strong><span>Something you are good at.</span></div>
+            <div class="vocab-item"><strong>Weakness</strong><span>Something you are bad at.</span></div>
+            <div class="vocab-item"><strong>To Hire</strong><span>To give someone a job.</span></div>
+            <div class="vocab-item"><strong>Team Player</strong><span>Someone who works well with others.</span></div>
+            <div class="vocab-item"><strong>Salary</strong><span>The money you get for working.</span></div>
+        </div></section>
+        <section class="dialogue-container"><div class="section-title">Conversation</div>
+            <div class="speech-bubble speaker-a"><div class="speaker-label">Manager</div><div>Tell me a little about yourself.</div></div>
+            <div class="speech-bubble speaker-b"><div class="speaker-label">Applicant</div><div>I have five years of experience in sales. I am hard-working.</div></div>
+            <div class="speech-bubble speaker-a"><div class="speaker-label">Manager</div><div>What is your greatest strength?</div></div>
+            <div class="speech-bubble speaker-b"><div class="speaker-label">Applicant</div><div>I am very organized and good with people.</div></div>
+        </section>
+    </div>
+    <div class="page">
+        <header class="chapter-header"><div class="chapter-number">Chapter 04</div><h2 class="chapter-title">Job Interview</h2><div class="page-type">Speaking Practice I: Preparation</div></header>
+        <div class="activity-box"><div class="activity-header"><span class="activity-badge">Drill</span> Positive Adjectives</div>
+            <p class="instruction">Match the adjective to the meaning. Then say: <em>"I am [Adjective]."</em></p>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px;">
+                <div>1. Punctual</div><div>A. I work well with others.</div>
+                <div>2. Creative</div><div>B. I am always on time.</div>
+                <div>3. Friendly</div><div>C. I have new ideas.</div>
+                <div>4. Collaborative</div><div>D. I am nice to people.</div>
+            </div>
+        </div>
+        <div class="activity-box"><div class="activity-header"><span class="activity-badge">Activity</span> My Experience</div>
+            <p class="instruction">Complete the sentences about your REAL life. Read them aloud.</p>
+            <p>1. I have experience in <span class="line-blank" style="width: 200px"></span>.</p>
+            <p>2. I am good at <span class="line-blank" style="width: 200px"></span>.</p>
+            <p>3. I want this job because <span class="line-blank" style="width: 200px"></span>.</p>
+        </div>
+        <div class="answer-key"><strong>Answers (Positive Adjectives):</strong> 1=B (Punctual/On time). 2=C (Creative/New ideas). 3=D (Friendly/Nice). 4=A (Collaborative/Works well with others).</div>
+    </div>
+    <div class="page">
+        <header class="chapter-header"><div class="chapter-number">Chapter 04</div><h2 class="chapter-title">Job Interview</h2><div class="page-type">Speaking Practice II: The Interview</div></header>
+        <div class="activity-box"><div class="activity-header"><span class="activity-badge">Role Play</span> The Final Interview</div>
+            <div class="card-grid">
+                <div class="role-card"><strong>Student A: The Interviewer</strong><br><br>You are hiring a new manager. Ask these questions:
+                    <ul><li>Tell me about yourself.</li><li>Why do you want this job?</li><li>Do you have any questions for me?</li></ul>
+                </div>
+                <div class="role-card"><strong>Student B: The Applicant</strong><br><br>You really want this job. Be polite, smile, and use your vocabulary words.</div>
+            </div>
+        </div>
+        <div class="activity-box"><div class="activity-header"><span class="activity-badge">Evaluation</span> Did they get the job?</div>
+            <div style="margin-top: 10px;">
+                <label><input type="checkbox"> Used good vocabulary</label><br>
+                <label><input type="checkbox"> Spoke clearly</label><br>
+                <label><input type="checkbox"> Was polite</label><br><br>
+                <strong>Decision:</strong> <span style="border: 1px solid black; padding: 2px 10px;">HIRED</span> or <span style="border: 1px solid black; padding: 2px 10px;">NOT HIRED</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================= -->
+    <!-- CHAPTER 5: AT THE RESTAURANT -->
+    <!-- ========================================= -->
+    <div class="page">
+        <header class="chapter-header"><div class="chapter-number">Chapter 05</div><h2 class="chapter-title">At the Restaurant</h2><div class="page-type">Vocabulary & Dialogue</div></header>
+        <section class="vocab-box"><div class="section-title">Key Vocabulary</div><div class="vocab-grid">
+            <div class="vocab-item"><strong>Reservation</strong><span>Booking a table in advance.</span></div>
+            <div class="vocab-item"><strong>Appetizer</strong><span>Small food before the main meal.</span></div>
+            <div class="vocab-item"><strong>Main Course</strong><span>The biggest part of the meal.</span></div>
+            <div class="vocab-item"><strong>Allergic</strong><span>When a food makes you sick.</span></div>
+            <div class="vocab-item"><strong>The Bill / Check</strong><span>The paper showing how much to pay.</span></div>
+            <div class="vocab-item"><strong>Tip / Gratuity</strong><span>Extra money for good service.</span></div>
+        </div></section>
+        <section class="dialogue-container"><div class="section-title">Conversation</div>
+            <div class="speech-bubble speaker-a"><div class="speaker-label">Waiter</div><div>Good evening. Are you ready to order?</div></div>
+            <div class="speech-bubble speaker-b"><div class="speaker-label">Customer</div><div>Yes. I will have the tomato soup for my appetizer.</div></div>
+            <div class="speech-bubble speaker-a"><div class="speaker-label">Waiter</div><div>Excellent. And for your main course?</div></div>
+            <div class="speech-bubble speaker-b"><div class="speaker-label">Customer</div><div>I'd like the grilled salmon, please. Does it come with a salad?</div></div>
+            <div class="speech-bubble speaker-a"><div class="speaker-label">Waiter</div><div>Yes, it comes with a side salad. What would you like to drink?</div></div>
+            <div class="speech-bubble speaker-b"><div class="speaker-label">Customer</div><div>Just water with lemon, please.</div></div>
+        </section>
+        <div style="margin-top: 40px; padding: 20px; background: #fff7ed; border-left: 5px solid #d97706;">
+            <strong>Grammar Note - Ordering politely:</strong><br>Use <em>"I would like..."</em> or <em>"I will have..."</em><br>Never say <em>"I want..."</em> (It sounds rude).
+        </div>
+    </div>
+    <div class="page">
+        <header class="chapter-header"><div class="chapter-number">Chapter 05</div><h2 class="chapter-title">At the Restaurant</h2><div class="page-type">Speaking Practice I: Navigating the Menu</div></header>
+        <div class="activity-box"><div class="activity-header"><span class="activity-badge">Drill</span> Polite Requests</div>
+            <p class="instruction">Change the direct demands into polite requests. Read them aloud to your partner.</p>
+            <ul class="drill-list">
+                <li>1. "Give me the menu." &rarr; <em>"Could we have the menu, please?"</em></li>
+                <li>2. "Bring me water." &rarr; <span class="line-blank" style="width: 250px"></span></li>
+                <li>3. "I want the bill." &rarr; <span class="line-blank" style="width: 250px"></span></li>
+                <li>4. "Where is the bathroom?" &rarr; <span class="line-blank" style="width: 250px"></span></li>
+            </ul>
+        </div>
+        <div class="activity-box"><div class="activity-header"><span class="activity-badge">Pair Work</span> Dietary Restrictions</div>
+            <p class="instruction">Practice asking questions about the food. Student A reads the prompt. Student B asks the waiter.</p>
+            <hr style="border: 0; border-top: 1px solid #eee; margin: 15px 0;">
+            <ul class="drill-list">
+                <li><strong>Prompt 1:</strong> You are vegetarian (no meat).</li>
+                <li><strong>Prompt 2:</strong> You are allergic to peanuts.</li>
+                <li><strong>Prompt 3:</strong> You don't like spicy food.</li>
+            </ul>
+        </div>
+        <div class="answer-key"><strong>Answers (Polite Requests):</strong> 2. Could you bring me some water, please? 3. Could we have the bill, please? 4. Could you tell me where the bathroom is?<br><strong>Answers (Dietary):</strong> 1. Does this dish have meat in it? 2. I am allergic to peanuts, does this have nuts? 3. Is this food spicy?</div>
+    </div>
+    <div class="page">
+        <header class="chapter-header"><div class="chapter-number">Chapter 05</div><h2 class="chapter-title">At the Restaurant</h2><div class="page-type">Speaking Practice II: Real-World Friction</div></header>
+        <div class="activity-box"><div class="activity-header"><span class="activity-badge">Role Play</span> The Wrong Order</div>
+            <div class="card-grid">
+                <div class="role-card"><strong>Student A: The Customer</strong><br><br>You ordered the <strong>Chicken Pasta</strong>, but the waiter just brought you <strong>Fish</strong>. Call the waiter over and politely explain the mistake. Stay polite.</div>
+                <div class="role-card"><strong>Student B: The Waiter</strong><br><br>You brought the wrong food. Apologize sincerely. Offer to fix it quickly.</div>
+            </div>
+        </div>
+        <div class="activity-box"><div class="activity-header"><span class="activity-badge">Challenge</span> Splitting the Bill</div>
+            <p class="instruction">You and your partner just finished eating. The total bill is $65. Act out the conversation. Task: Decide how you will pay, then call the waiter over and explain how to divide the check.</p>
+        </div>
+    </div>
+
+    <!-- ========================================= -->
+    <!-- CHAPTER 6: GROCERY SHOPPING -->
+    <!-- ========================================= -->
+    <div class="page">
+        <header class="chapter-header"><div class="chapter-number">Chapter 06</div><h2 class="chapter-title">Grocery Shopping</h2><div class="page-type">Vocabulary & Dialogue</div></header>
+        <section class="vocab-box"><div class="section-title">Key Vocabulary</div><div class="vocab-grid">
+            <div class="vocab-item"><strong>Aisle</strong><span>The walking space between shelves.</span></div>
+            <div class="vocab-item"><strong>Shopping Cart</strong><span>The basket on wheels for your food.</span></div>
+            <div class="vocab-item"><strong>Checkout / Register</strong><span>Where you pay for your items.</span></div>
+            <div class="vocab-item"><strong>Cashier</strong><span>The person who takes your money.</span></div>
+            <div class="vocab-item"><strong>Produce</strong><span>Fresh fruit and vegetables.</span></div>
+            <div class="vocab-item"><strong>Scale</strong><span>The machine that weighs your food.</span></div>
+        </div></section>
+        <section class="dialogue-container"><div class="section-title">Conversation</div>
+            <div class="speech-bubble speaker-a"><div class="speaker-label">Shopper</div><div>Excuse me. Could you tell me where the milk is?</div></div>
+            <div class="speech-bubble speaker-b"><div class="speaker-label">Employee</div><div>Sure. It is in the dairy section, in Aisle 4.</div></div>
+        </section>
+        <section class="dialogue-container">
+            <div class="speech-bubble speaker-a"><div class="speaker-label">Cashier</div><div>Your total is $45.50. Are you paying with cash or card?</div></div>
+            <div class="speech-bubble speaker-b"><div class="speaker-label">Shopper</div><div>I'll pay with a card. Do you need my receipt?</div></div>
+            <div class="speech-bubble speaker-a"><div class="speaker-label">Cashier</div><div>No, just put the card in the machine. Here is your receipt.</div></div>
+        </section>
+    </div>
+    <div class="page">
+        <header class="chapter-header"><div class="chapter-number">Chapter 06</div><h2 class="chapter-title">Grocery Shopping</h2><div class="page-type">Speaking Practice I: Where is it?</div></header>
+        <div class="activity-box"><div class="activity-header"><span class="activity-badge">Drill</span> Asking for Help</div>
+            <div style="background: #fffbeb; padding: 15px; margin-bottom: 20px; font-weight: bold; text-align: center;">
+                Aisle 1: Bread & Bakery &nbsp;|&nbsp; Aisle 2: Canned Goods &nbsp;|&nbsp; Aisle 3: Meat & Seafood &nbsp;|&nbsp; Aisle 4: Dairy
+            </div>
+            <ul class="drill-list">
+                <li><strong>1. (Eggs)</strong><br> A: "Excuse me, where are the eggs?" <br> B: "They are in Aisle <span class="line-blank" style="width: 50px"></span>."</li><br>
+                <li><strong>2. (Chicken)</strong><br> A: "Excuse me, where is the <span class="line-blank" style="width: 100px"></span>?" <br> B: "It is in Aisle <span class="line-blank" style="width: 50px"></span>."</li><br>
+                <li><strong>3. (Soup)</strong><br> A: "Could you tell me where the <span class="line-blank" style="width: 100px"></span> is?" <br> B: "It is in Aisle <span class="line-blank" style="width: 50px"></span>."</li>
+            </ul>
+        </div>
+        <div class="answer-key"><strong>Answers:</strong> 1. Aisle 4 (Dairy). 2. Chicken / Aisle 3. 3. Soup / Aisle 2.</div>
+    </div>
+    <div class="page">
+        <header class="chapter-header"><div class="chapter-number">Chapter 06</div><h2 class="chapter-title">Grocery Shopping</h2><div class="page-type">Speaking Practice II: At the Register</div></header>
+        <div class="activity-box"><div class="activity-header"><span class="activity-badge">Role Play</span> The Missing Price</div>
+            <div class="card-grid">
+                <div class="role-card"><strong>Student A: The Cashier</strong><br><br>You are scanning items. You pick up a bag of apples, but there is no barcode or price tag. Tell the customer you need to call a manager to check the price. Ask them to wait.</div>
+                <div class="role-card"><strong>Student B: The Customer</strong><br><br>You are in a hurry. Tell the cashier to just remove the apples from your order. You don't want to wait.</div>
+            </div>
+        </div>
+        <div class="activity-box"><div class="activity-header"><span class="activity-badge">Role Play</span> Card Declined</div>
+            <div class="card-grid">
+                <div class="role-card"><strong>Student A: The Cashier</strong><br><br>The total is $85. The customer's credit card was declined. Tell the customer politely and ask if they have another way to pay.</div>
+                <div class="role-card"><strong>Student B: The Customer</strong><br><br>Your card was declined. Act surprised. Check your wallet. Tell the cashier you will pay with cash instead. Count out the money out loud.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================= -->
+    <!-- CHAPTER 7: TRAVEL & AIRPORT -->
+    <!-- ========================================= -->
+    <div class="page">
+        <header class="chapter-header"><div class="chapter-number">Chapter 07</div><h2 class="chapter-title">Travel & Airport</h2><div class="page-type">Vocabulary & Dialogue</div></header>
+        <section class="vocab-box"><div class="section-title">Key Vocabulary</div><div class="vocab-grid">
+            <div class="vocab-item"><strong>Boarding Pass</strong><span>Your ticket to get on the plane.</span></div>
+            <div class="vocab-item"><strong>Gate</strong><span>Where you wait for the plane.</span></div>
+            <div class="vocab-item"><strong>Security</strong><span>Where they check your bags for danger.</span></div>
+            <div class="vocab-item"><strong>Overweight</strong><span>Too heavy (costs extra money).</span></div>
+            <div class="vocab-item"><strong>Delayed</strong><span>Late. Not on time.</span></div>
+            <div class="vocab-item"><strong>Carry-on</strong><span>The small bag you take on the plane.</span></div>
+        </div></section>
+        <section class="dialogue-container"><div class="section-title">Conversation</div>
+            <div class="speech-bubble speaker-a"><div class="speaker-label">Agent</div><div>Passport and ticket, please.</div></div>
+            <div class="speech-bubble speaker-b"><div class="speaker-label">Traveler</div><div>Here you go.</div></div>
+            <div class="speech-bubble speaker-a"><div class="speaker-label">Agent</div><div>Are you checking any bags today?</div></div>
+            <div class="speech-bubble speaker-b"><div class="speaker-label">Traveler</div><div>Just one. And I have one carry-on.</div></div>
+            <div class="speech-bubble speaker-a"><div class="speaker-label">Agent</div><div>Please put your bag on the scale. ... I'm sorry, it is overweight by 2 kilos.</div></div>
+            <div class="speech-bubble speaker-b"><div class="speaker-label">Traveler</div><div>Oh. Can I take a sweater out and put it in my carry-on?</div></div>
+            <div class="speech-bubble speaker-a"><div class="speaker-label">Agent</div><div>Yes, you can. Step to the side, please.</div></div>
+        </section>
+    </div>
+    <div class="page">
+        <header class="chapter-header"><div class="chapter-number">Chapter 07</div><h2 class="chapter-title">Travel & Airport</h2><div class="page-type">Speaking Practice I</div></header>
+        <div class="activity-box"><div class="activity-header"><span class="activity-badge">Drill</span> Security Instructions</div>
+            <p class="instruction">Security agents speak fast and use commands. Practice giving and following these commands.</p>
+            <ul class="drill-list">
+                <li>1. "Take off your shoes."</li>
+                <li>2. "Take your laptop out of the bag."</li>
+                <li>3. "Empty your pockets."</li>
+                <li>4. "Step through the scanner."</li>
+            </ul>
+        </div>
+        <div class="activity-box"><div class="activity-header"><span class="activity-badge">Pair Work</span> "Where is my gate?"</div>
+            <p class="instruction">You are late. Ask for directions to Gate B12.</p>
+            <p><strong>A:</strong> Excuse me, how do I get to Gate B12?<br><strong>B:</strong> Turn right past security, then go straight.</p>
+        </div>
+        <div class="answer-key">Ensure students do not say "please" at the end of every security command; agents are direct.</div>
+    </div>
+    <div class="page">
+        <header class="chapter-header"><div class="chapter-number">Chapter 07</div><h2 class="chapter-title">Travel & Airport</h2><div class="page-type">Speaking Practice II</div></header>
+        <div class="activity-box"><div class="activity-header"><span class="activity-badge">Role Play</span> Missing Luggage</div>
+            <div class="card-grid">
+                <div class="role-card"><strong>Student A: The Traveler</strong><br><br>You arrived in London, but your bag is not on the carousel. Go to the desk. Describe your bag (color, size, brand) and demand to know when you will get it.</div>
+                <div class="role-card"><strong>Student B: The Agent</strong><br><br>Ask for their baggage claim ticket. Type on your computer. Tell them the bag is still in Paris and will arrive tomorrow morning.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================= -->
+    <!-- CHAPTER 8: BOOKING A HOTEL -->
+    <!-- ========================================= -->
+    <div class="page">
+        <header class="chapter-header"><div class="chapter-number">Chapter 08</div><h2 class="chapter-title">Booking a Hotel</h2><div class="page-type">Vocabulary & Dialogue</div></header>
+        <section class="vocab-box"><div class="section-title">Key Vocabulary</div><div class="vocab-grid">
+            <div class="vocab-item"><strong>Reservation</strong><span>Holding a room in advance.</span></div>
+            <div class="vocab-item"><strong>Deposit</strong><span>Money held in case you break something.</span></div>
+            <div class="vocab-item"><strong>Check-out</strong><span>Leaving and paying at the end.</span></div>
+            <div class="vocab-item"><strong>Key Card</strong><span>The plastic card to open your door.</span></div>
+            <div class="vocab-item"><strong>Elevator/Lift</strong><span>Machine to go up floors.</span></div>
+            <div class="vocab-item"><strong>Included</strong><span>Free / You don't pay extra.</span></div>
+        </div></section>
+        <section class="dialogue-container"><div class="section-title">Conversation</div>
+            <div class="speech-bubble speaker-a"><div class="speaker-label">Clerk</div><div>Welcome! How can I help you?</div></div>
+            <div class="speech-bubble speaker-b"><div class="speaker-label">Guest</div><div>Hi. I have a reservation under the name Garcia.</div></div>
+            <div class="speech-bubble speaker-a"><div class="speaker-label">Clerk</div><div>Yes, Mr. Garcia. Three nights in a double room. I need a credit card for the deposit.</div></div>
+            <div class="speech-bubble speaker-b"><div class="speaker-label">Guest</div><div>Here you go. Is breakfast included?</div></div>
+            <div class="speech-bubble speaker-a"><div class="speaker-label">Clerk</div><div>Yes, breakfast is from 6 AM to 10 AM. Here is your key card. You are in room 405.</div></div>
+        </section>
+    </div>
+    <div class="page">
+        <header class="chapter-header"><div class="chapter-number">Chapter 08</div><h2 class="chapter-title">Booking a Hotel</h2><div class="page-type">Speaking Practice I</div></header>
+        <div class="activity-box"><div class="activity-header"><span class="activity-badge">Drill</span> Asking for things</div>
+            <p class="instruction">Call the front desk. Ask for these items politely using: <em>"Could I get some extra..."</em></p>
+            <ul class="drill-list">
+                <li>1. Towels</li>
+                <li>2. Pillows</li>
+                <li>3. Toilet paper</li>
+                <li>4. Coffee</li>
+            </ul>
+        </div>
+        <div class="activity-box"><div class="activity-header"><span class="activity-badge">Drill</span> When is it?</div>
+            <p class="instruction">Ask about hotel rules.</p>
+            <ul class="drill-list">
+                <li>1. When is check-out time?</li>
+                <li>2. What time does the pool close?</li>
+                <li>3. What time is breakfast served?</li>
+            </ul>
+        </div>
+        <div class="answer-key">1. Could I get some extra towels, please? 2. Could I get some extra pillows, please? etc.</div>
+    </div>
+    <div class="page">
+        <header class="chapter-header"><div class="chapter-number">Chapter 08</div><h2 class="chapter-title">Booking a Hotel</h2><div class="page-type">Speaking Practice II</div></header>
+        <div class="activity-box"><div class="activity-header"><span class="activity-badge">Role Play</span> Room Problems</div>
+            <div class="card-grid">
+                <div class="role-card"><strong>Student A: The Guest</strong><br><br>You just entered your room. The bed is dirty, and the air conditioning does not work. Call the front desk and complain. Ask for a new room.</div>
+                <div class="role-card"><strong>Student B: The Clerk</strong><br><br>Listen to the guest. Apologize. Tell them the hotel is fully booked tonight, but you will send a cleaner immediately.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================= -->
+    <!-- CHAPTER 9: AT THE DOCTOR -->
+    <!-- ========================================= -->
+    <div class="page">
+        <header class="chapter-header"><div class="chapter-number">Chapter 09</div><h2 class="chapter-title">At the Doctor</h2><div class="page-type">Vocabulary & Dialogue</div></header>
+        <section class="vocab-box"><div class="section-title">Key Vocabulary</div><div class="vocab-grid">
+            <div class="vocab-item"><strong>Symptoms</strong><span>How you feel sick (fever, cough).</span></div>
+            <div class="vocab-item"><strong>Prescription</strong><span>Paper for medicine.</span></div>
+            <div class="vocab-item"><strong>Pharmacy</strong><span>Store where you buy medicine.</span></div>
+            <div class="vocab-item"><strong>Dose</strong><span>How much medicine to take.</span></div>
+            <div class="vocab-item"><strong>Pain</strong><span>When your body hurts.</span></div>
+            <div class="vocab-item"><strong>Insurance</strong><span>Card that helps pay the doctor.</span></div>
+        </div></section>
+        <section class="dialogue-container"><div class="section-title">Conversation</div>
+            <div class="speech-bubble speaker-a"><div class="speaker-label">Doctor</div><div>What seems to be the problem today?</div></div>
+            <div class="speech-bubble speaker-b"><div class="speaker-label">Patient</div><div>I have a terrible headache, and my throat hurts.</div></div>
+            <div class="speech-bubble speaker-a"><div class="speaker-label">Doctor</div><div>How long have you felt like this?</div></div>
+            <div class="speech-bubble speaker-b"><div class="speaker-label">Patient</div><div>Since Tuesday. I also have a fever.</div></div>
+            <div class="speech-bubble speaker-a"><div class="speaker-label">Doctor</div><div>I will write you a prescription for antibiotics. Take two pills every morning with food.</div></div>
+        </section>
+    </div>
+    <div class="page">
+        <header class="chapter-header"><div class="chapter-number">Chapter 09</div><h2 class="chapter-title">At the Doctor</h2><div class="page-type">Speaking Practice I</div></header>
+        <div class="activity-box"><div class="activity-header"><span class="activity-badge">Drill</span> Explaining Pain</div>
+            <p class="instruction">Change the sentence to use "ache" or "hurts".</p>
+            <ul class="drill-list">
+                <li>1. "My head hurts." &rarr; <em>"I have a headache."</em></li>
+                <li>2. "My stomach hurts." &rarr; <span class="line-blank" style="width: 150px"></span></li>
+                <li>3. "My back hurts." &rarr; <span class="line-blank" style="width: 150px"></span></li>
+                <li>4. "My tooth hurts." &rarr; <span class="line-blank" style="width: 150px"></span></li>
+            </ul>
+        </div>
+        <div class="activity-box"><div class="activity-header"><span class="activity-badge">Pair Work</span> Making an Appointment</div>
+            <p class="instruction">A: Call the clinic. You need to see a doctor today. <br>B: Receptionist. Say there are no times today, only tomorrow at 9 AM.</p>
+        </div>
+        <div class="answer-key">2. I have a stomachache. 3. I have a backache. 4. I have a toothache.</div>
+    </div>
+    <div class="page">
+        <header class="chapter-header"><div class="chapter-number">Chapter 09</div><h2 class="chapter-title">At the Doctor</h2><div class="page-type">Speaking Practice II</div></header>
+        <div class="activity-box"><div class="activity-header"><span class="activity-badge">Role Play</span> Pharmacy Confusion</div>
+            <div class="card-grid">
+                <div class="role-card"><strong>Student A: The Patient</strong><br><br>Give the pharmacist your prescription. Ask two questions: "Does this make me sleepy?" and "Can I drink alcohol with this?"</div>
+                <div class="role-card"><strong>Student B: The Pharmacist</strong><br><br>Read the fake label. Tell them: "Yes, it makes you very tired. No, do not drink alcohol. Take it with water."</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================= -->
+    <!-- CHAPTER 10: BANKING & MONEY -->
+    <!-- ========================================= -->
+    <div class="page">
+        <header class="chapter-header"><div class="chapter-number">Chapter 10</div><h2 class="chapter-title">Banking & Money</h2><div class="page-type">Vocabulary & Dialogue</div></header>
+        <section class="vocab-box"><div class="section-title">Key Vocabulary</div><div class="vocab-grid">
+            <div class="vocab-item"><strong>Account</strong><span>Where the bank keeps your money.</span></div>
+            <div class="vocab-item"><strong>Deposit</strong><span>To put money IN the bank.</span></div>
+            <div class="vocab-item"><strong>Withdraw</strong><span>To take money OUT.</span></div>
+            <div class="vocab-item"><strong>Fee</strong><span>Money the bank charges you.</span></div>
+            <div class="vocab-item"><strong>Balance</strong><span>How much money you have right now.</span></div>
+            <div class="vocab-item"><strong>Overdraft</strong><span>Spending more money than you have.</span></div>
+        </div></section>
+        <section class="dialogue-container"><div class="section-title">Conversation</div>
+            <div class="speech-bubble speaker-a"><div class="speaker-label">Teller</div><div>How can I help you today?</div></div>
+            <div class="speech-bubble speaker-b"><div class="speaker-label">Customer</div><div>I want to deposit this check, and withdraw $100 in cash.</div></div>
+            <div class="speech-bubble speaker-a"><div class="speaker-label">Teller</div><div>Okay. Insert your debit card and type your PIN.</div></div>
+            <div class="speech-bubble speaker-b"><div class="speaker-label">Customer</div><div>Done. Can you also tell me my current balance?</div></div>
+            <div class="speech-bubble speaker-a"><div class="speaker-label">Teller</div><div>Your balance is $450. Here is your $100 cash and receipt.</div></div>
+        </section>
+    </div>
+    <div class="page">
+        <header class="chapter-header"><div class="chapter-number">Chapter 10</div><h2 class="chapter-title">Banking & Money</h2><div class="page-type">Speaking Practice I</div></header>
+        <div class="activity-box"><div class="activity-header"><span class="activity-badge">Drill</span> Big Numbers & Money</div>
+            <p class="instruction">Read these numbers aloud to your partner.</p>
+            <ul class="drill-list">
+                <li>$15.50 (Fifteen dollars and fifty cents)</li>
+                <li>$120.00</li>
+                <li>$1,500</li>
+                <li>$4,325.99</li>
+            </ul>
+        </div>
+        <div class="activity-box"><div class="activity-header"><span class="activity-badge">Pair Work</span> "I lost my card"</div>
+            <p class="instruction">A: Call the bank. Say you lost your debit card.<br>B: Ask for their name and birthdate to freeze the card.</p>
+        </div>
+        <div class="answer-key">One hundred twenty dollars. / One thousand five hundred. / Four thousand three hundred twenty-five dollars and ninety-nine cents.</div>
+    </div>
+    <div class="page">
+        <header class="chapter-header"><div class="chapter-number">Chapter 10</div><h2 class="chapter-title">Banking & Money</h2><div class="page-type">Speaking Practice II</div></header>
+        <div class="activity-box"><div class="activity-header"><span class="activity-badge">Role Play</span> The Unfair Fee</div>
+            <div class="card-grid">
+                <div class="role-card"><strong>Student A: Customer</strong><br><br>Look at your phone. The bank charged you a $35 "Overdraft Fee". You are angry. Go to the teller, show them, and ask them to remove the fee. Say it was a mistake.</div>
+                <div class="role-card"><strong>Student B: Bank Manager</strong><br><br>Explain that the rules are strict. Say: "I'm sorry, you spent more money than you had." Eventually, agree to remove half of the fee as a favor.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================= -->
+    <!-- CHAPTER 11: HOUSING & LANDLORDS -->
+    <!-- ========================================= -->
+    <div class="page">
+        <header class="chapter-header"><div class="chapter-number">Chapter 11</div><h2 class="chapter-title">Housing & Landlords</h2><div class="page-type">Vocabulary & Dialogue</div></header>
+        <section class="vocab-box"><div class="section-title">Key Vocabulary</div><div class="vocab-grid">
+            <div class="vocab-item"><strong>Landlord</strong><span>The person who owns the apartment.</span></div>
+            <div class="vocab-item"><strong>Lease</strong><span>The contract you sign.</span></div>
+            <div class="vocab-item"><strong>Rent</strong><span>Money paid every month to live there.</span></div>
+            <div class="vocab-item"><strong>Utilities</strong><span>Water, electricity, gas.</span></div>
+            <div class="vocab-item"><strong>Maintenance</strong><span>Fixing things that are broken.</span></div>
+            <div class="vocab-item"><strong>Leak</strong><span>Water escaping from a pipe.</span></div>
+        </div></section>
+        <section class="dialogue-container"><div class="section-title">Conversation</div>
+            <div class="speech-bubble speaker-a"><div class="speaker-label">Tenant</div><div>Hi. I am calling from apartment 4B. We have a problem.</div></div>
+            <div class="speech-bubble speaker-b"><div class="speaker-label">Landlord</div><div>What is the issue?</div></div>
+            <div class="speech-bubble speaker-a"><div class="speaker-label">Tenant</div><div>The pipe under the kitchen sink is leaking. There is water everywhere.</div></div>
+            <div class="speech-bubble speaker-b"><div class="speaker-label">Landlord</div><div>Okay. Turn off the water valve. I will send the plumber this afternoon.</div></div>
+            <div class="speech-bubble speaker-a"><div class="speaker-label">Tenant</div><div>Thank you. What time will he arrive? I need to go to work.</div></div>
+        </section>
+    </div>
+    <div class="page">
+        <header class="chapter-header"><div class="chapter-number">Chapter 11</div><h2 class="chapter-title">Housing & Landlords</h2><div class="page-type">Speaking Practice I</div></header>
+        <div class="activity-box"><div class="activity-header"><span class="activity-badge">Drill</span> Reporting Problems</div>
+            <p class="instruction">Tell your landlord what is broken using: <em>"The [thing] is not working."</em></p>
+            <ul class="drill-list">
+                <li>1. Stove (oven)</li>
+                <li>2. Heater</li>
+                <li>3. Shower</li>
+                <li>4. Front Door Lock</li>
+            </ul>
+        </div>
+        <div class="activity-box"><div class="activity-header"><span class="activity-badge">Pair Work</span> Apartment Hunting</div>
+            <p class="instruction">A: Ask questions about a new apartment (Price? Pets allowed? Parking?).<br>B: Answer the questions.</p>
+        </div>
+        <div class="answer-key">1. The stove is not working. 2. The heater is not working. 3. The shower is not working. 4. The front door lock is not working.</div>
+    </div>
+    <div class="page">
+        <header class="chapter-header"><div class="chapter-number">Chapter 11</div><h2 class="chapter-title">Housing & Landlords</h2><div class="page-type">Speaking Practice II</div></header>
+        <div class="activity-box"><div class="activity-header"><span class="activity-badge">Role Play</span> Late Rent</div>
+            <div class="card-grid">
+                <div class="role-card"><strong>Student A: The Tenant</strong><br><br>You lost your job. Rent is due tomorrow, but you only have half the money. Call the landlord. Be honest and ask for an extra week to pay the rest.</div>
+                <div class="role-card"><strong>Student B: The Landlord</strong><br><br>You are annoyed. Say there is a $50 late fee. Ask exactly what day they will pay you.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================= -->
+    <!-- CHAPTER 12: RETURNS & SERVICE -->
+    <!-- ========================================= -->
+    <div class="page">
+        <header class="chapter-header"><div class="chapter-number">Chapter 12</div><h2 class="chapter-title">Returns & Service</h2><div class="page-type">Vocabulary & Dialogue</div></header>
+        <section class="vocab-box"><div class="section-title">Key Vocabulary</div><div class="vocab-grid">
+            <div class="vocab-item"><strong>Refund</strong><span>Getting your money back.</span></div>
+            <div class="vocab-item"><strong>Exchange</strong><span>Trading it for a new one.</span></div>
+            <div class="vocab-item"><strong>Defective</strong><span>Broken when you bought it.</span></div>
+            <div class="vocab-item"><strong>Receipt</strong><span>Proof of purchase.</span></div>
+            <div class="vocab-item"><strong>Policy</strong><span>The store's rules.</span></div>
+            <div class="vocab-item"><strong>Manager</strong><span>The boss of the store.</span></div>
+        </div></section>
+        <section class="dialogue-container"><div class="section-title">Conversation</div>
+            <div class="speech-bubble speaker-a"><div class="speaker-label">Customer</div><div>Hi. I need to return this blender.</div></div>
+            <div class="speech-bubble speaker-b"><div class="speaker-label">Worker</div><div>Was there something wrong with it?</div></div>
+            <div class="speech-bubble speaker-a"><div class="speaker-label">Customer</div><div>Yes, it is defective. When I turn it on, it makes a terrible noise.</div></div>
+            <div class="speech-bubble speaker-b"><div class="speaker-label">Worker</div><div>I'm sorry about that. Do you have your receipt?</div></div>
+            <div class="speech-bubble speaker-a"><div class="speaker-label">Customer</div><div>Yes, here it is. I would like a refund, please.</div></div>
+        </section>
+    </div>
+    <div class="page">
+        <header class="chapter-header"><div class="chapter-number">Chapter 12</div><h2 class="chapter-title">Returns & Service</h2><div class="page-type">Speaking Practice I</div></header>
+        <div class="activity-box"><div class="activity-header"><span class="activity-badge">Drill</span> Explain the Problem</div>
+            <p class="instruction">Tell the worker why you are returning it.</p>
+            <ul class="drill-list">
+                <li>1. (Shirt) &rarr; "It doesn't fit. It's too small."</li>
+                <li>2. (Phone charger) &rarr; <span class="line-blank" style="width: 250px"></span></li>
+                <li>3. (Milk) &rarr; <span class="line-blank" style="width: 250px"></span></li>
+            </ul>
+        </div>
+        <div class="activity-box"><div class="activity-header"><span class="activity-badge">Drill</span> Escalation</div>
+            <p class="instruction">Practice these firm phrases when service is bad.</p>
+            <ul class="drill-list">
+                <li>"Could I speak to your manager, please?"</li>
+                <li>"That is unacceptable."</li>
+                <li>"Where does it say that in the policy?"</li>
+            </ul>
+        </div>
+        <div class="answer-key">2. It doesn't work / It's defective. 3. It's expired / It smells bad.</div>
+    </div>
+    <div class="page">
+        <header class="chapter-header"><div class="chapter-number">Chapter 12</div><h2 class="chapter-title">Returns & Service</h2><div class="page-type">Speaking Practice II</div></header>
+        <div class="activity-box"><div class="activity-header"><span class="activity-badge">Role Play</span> Past the Deadline</div>
+            <div class="card-grid">
+                <div class="role-card"><strong>Student A: Customer</strong><br><br>You bought a jacket 35 days ago. You want to return it. You have the receipt, but the tag is off. Argue that it was a gift and it does not fit. You want a refund.</div>
+                <div class="role-card"><strong>Student B: Manager</strong><br><br>The return policy is strictly 30 days. Say no to the refund. Offer them "store credit" (an exchange) instead. Be firm but polite.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================= -->
+    <!-- CHAPTER 13: PUBLIC TRANSPORTATION -->
+    <!-- ========================================= -->
+    <div class="page">
+        <header class="chapter-header"><div class="chapter-number">Chapter 13</div><h2 class="chapter-title">Public Transit</h2><div class="page-type">Vocabulary & Dialogue</div></header>
+        <section class="vocab-box"><div class="section-title">Key Vocabulary</div><div class="vocab-grid">
+            <div class="vocab-item"><strong>Fare</strong><span>The money you pay to ride.</span></div>
+            <div class="vocab-item"><strong>Transfer</strong><span>Changing from one bus/train to another.</span></div>
+            <div class="vocab-item"><strong>Route</strong><span>The path the bus or train takes.</span></div>
+            <div class="vocab-item"><strong>Platform</strong><span>Where you stand to wait for the train.</span></div>
+            <div class="vocab-item"><strong>Delayed</strong><span>Running late.</span></div>
+            <div class="vocab-item"><strong>Stop / Station</strong><span>Where people get on or off.</span></div>
+        </div></section>
+        <section class="dialogue-container"><div class="section-title">Conversation</div>
+            <div class="speech-bubble speaker-a"><div class="speaker-label">Passenger</div><div>Excuse me, does this bus go to the City Hospital?</div></div>
+            <div class="speech-bubble speaker-b"><div class="speaker-label">Driver</div><div>No, this is the Express route. You need the Number 14 bus.</div></div>
+            <div class="speech-bubble speaker-a"><div class="speaker-label">Passenger</div><div>Oh, I see. Where does the Number 14 stop?</div></div>
+            <div class="speech-bubble speaker-b"><div class="speaker-label">Driver</div><div>Just across the street. It comes every twenty minutes.</div></div>
+            <div class="speech-bubble speaker-a"><div class="speaker-label">Passenger</div><div>Thank you. Do I need exact change for the fare?</div></div>
+            <div class="speech-bubble speaker-b"><div class="speaker-label">Driver</div><div>Yes, it is $2.50. Or you can tap your card.</div></div>
+        </section>
+    </div>
+    <div class="page">
+        <header class="chapter-header"><div class="chapter-number">Chapter 13</div><h2 class="chapter-title">Public Transit</h2><div class="page-type">Speaking Practice I</div></header>
+        <div class="activity-box"><div class="activity-header"><span class="activity-badge">Drill</span> Asking for the Route</div>
+            <p class="instruction">Ask your partner if the train goes to these places.</p>
+            <ul class="drill-list">
+                <li>1. (Airport) &rarr; <em>"Excuse me, does this train go to the airport?"</em></li>
+                <li>2. (Main Street) &rarr; <span class="line-blank" style="width: 250px"></span></li>
+                <li>3. (University) &rarr; <span class="line-blank" style="width: 250px"></span></li>
+            </ul>
+        </div>
+        <div class="activity-box"><div class="activity-header"><span class="activity-badge">Pair Work</span> How many stops?</div>
+            <p class="instruction">A: "How many stops until the museum?"<br>B: (Look at the list below and answer) "It is [number] stops away."</p>
+            <div style="background: #fffbeb; padding: 10px; margin-top: 10px;">
+                <strong>Current Station:</strong> Central Station<br>
+                1. Pine Street | 2. Oak Avenue | 3. The Museum | 4. The Library
+            </div>
+        </div>
+        <div class="answer-key">1. Does this train go to Main Street? 2. Does this train go to the University? | The museum is three stops away.</div>
+    </div>
+    <div class="page">
+        <header class="chapter-header"><div class="chapter-number">Chapter 13</div><h2 class="chapter-title">Public Transit</h2><div class="page-type">Speaking Practice II</div></header>
+        <div class="activity-box"><div class="activity-header"><span class="activity-badge">Role Play</span> The Bag on the Seat</div>
+            <div class="card-grid">
+                <div class="role-card"><strong>Student A: Standing Passenger</strong><br><br>The bus is very crowded. You have heavy bags. Student B has their backpack on the only empty seat. Politely but firmly ask them to move their bag so you can sit.</div>
+                <div class="role-card"><strong>Student B: Seated Passenger</strong><br><br>You are listening to music and not paying attention. When Student A asks you, apologize, move your bag, and make room.</div>
+            </div>
+        </div>
+        <div class="activity-box"><div class="activity-header"><span class="activity-badge">Role Play</span> Missed Stop</div>
+            <p class="instruction">You missed your stop because the bell didn't work. Walk up to the bus driver. Say: <em>"Excuse me! I missed my stop. Can you let me off here, please?"</em></p>
+        </div>
+    </div>
+
+    <!-- ========================================= -->
+    <!-- CHAPTER 14: TELEPHONE CALLS -->
+    <!-- ========================================= -->
+    <div class="page">
+        <header class="chapter-header"><div class="chapter-number">Chapter 14</div><h2 class="chapter-title">Telephone Calls</h2><div class="page-type">Vocabulary & Dialogue</div></header>
+        <section class="vocab-box"><div class="section-title">Key Vocabulary</div><div class="vocab-grid">
+            <div class="vocab-item"><strong>Hold</strong><span>To wait on the line.</span></div>
+            <div class="vocab-item"><strong>Voicemail</strong><span>An audio message you leave when someone doesn't answer.</span></div>
+            <div class="vocab-item"><strong>Available</strong><span>Free to talk / Ready.</span></div>
+            <div class="vocab-item"><strong>Connection</strong><span>The signal quality (Good/Bad).</span></div>
+            <div class="vocab-item"><strong>Appointment</strong><span>A scheduled time to meet.</span></div>
+            <div class="vocab-item"><strong>Hang up</strong><span>To end the phone call.</span></div>
+        </div></section>
+        <section class="dialogue-container"><div class="section-title">Conversation</div>
+            <div class="speech-bubble speaker-a"><div class="speaker-label">Receptionist</div><div>Johnson Dental Clinic, how can I help you?</div></div>
+            <div class="speech-bubble speaker-b"><div class="speaker-label">Caller</div><div>Hi. I would like to make an appointment for a check-up.</div></div>
+            <div class="speech-bubble speaker-a"><div class="speaker-label">Receptionist</div><div>Okay. Are you a new patient?</div></div>
+            <div class="speech-bubble speaker-b"><div class="speaker-label">Caller</div><div>No, my name is Maria Lopez.</div></div>
+            <div class="speech-bubble speaker-a"><div class="speaker-label">Receptionist</div><div>Thank you. We have an opening next Thursday at 2:00 PM. Does that work?</div></div>
+            <div class="speech-bubble speaker-b"><div class="speaker-label">Caller</div><div>Yes, Thursday at 2:00 is perfect.</div></div>
+        </section>
+    </div>
+    <div class="page">
+        <header class="chapter-header"><div class="chapter-number">Chapter 14</div><h2 class="chapter-title">Telephone Calls</h2><div class="page-type">Speaking Practice I</div></header>
+        <div class="activity-box"><div class="activity-header"><span class="activity-badge">Drill</span> Telephone Recovery Phrases</div>
+            <p class="instruction">You cannot see the other person's face. If you don't understand, you MUST stop them. Practice these out loud.</p>
+            <ul class="drill-list">
+                <li>"I'm sorry, could you speak a little slower?"</li>
+                <li>"Could you repeat that, please?"</li>
+                <li>"I'm sorry, we have a bad connection. Can you hear me?"</li>
+            </ul>
+        </div>
+        <div class="activity-box"><div class="activity-header"><span class="activity-badge">Activity</span> Leaving a Message</div>
+            <p class="instruction">The person did not answer. Read your voicemail out loud.</p>
+            <div style="padding-left: 15px; border-left: 3px solid #ccc; font-style: italic;">
+                "Hi, this is [Your Name]. I am calling about [My Car / My Appointment / The Job]. Please call me back at [Your Phone Number]. Thank you!"
+            </div>
+        </div>
+        <div class="answer-key">Ensure students are saying their phone numbers in single digits (e.g., "Five-Five-Five" not "Five hundred fifty-five").</div>
+    </div>
+    <div class="page">
+        <header class="chapter-header"><div class="chapter-number">Chapter 14</div><h2 class="chapter-title">Telephone Calls</h2><div class="page-type">Speaking Practice II</div></header>
+        <div class="activity-box"><div class="activity-header"><span class="activity-badge">Role Play</span> Canceling an Appointment</div>
+            <div class="card-grid">
+                <div class="role-card"><strong>Student A: Caller</strong><br><br>Call the mechanic. You have an appointment tomorrow to fix your car, but you are sick. You need to cancel the appointment and reschedule for next week.</div>
+                <div class="role-card"><strong>Student B: Mechanic</strong><br><br>You are very busy. Speak very fast. When they cancel, ask: "Okay, when do you want to bring it in instead?"</div>
+            </div>
+        </div>
+        <div class="activity-box"><div class="activity-header"><span class="activity-badge">Challenge</span> The Bad Connection</div>
+            <p class="instruction">Student A and B sit back-to-back (do not look at each other). Try to spell your full name and email address over the "phone". If B doesn't hear, they must use a recovery phrase.</p>
+        </div>
+    </div>
+
+    <!-- ========================================= -->
+    <!-- CHAPTER 15: EMERGENCIES -->
+    <!-- ========================================= -->
+    <div class="page">
+        <header class="chapter-header"><div class="chapter-number">Chapter 15</div><h2 class="chapter-title">Emergencies & 911</h2><div class="page-type">Vocabulary & Dialogue</div></header>
+        <div style="background: #fee2e2; border: 2px solid #ef4444; padding: 10px; text-align: center; color: #991b1b; font-weight: bold; margin-bottom: 20px;">
+            In the USA/Canada, dial 9-1-1 for life-threatening emergencies.
+        </div>
+        <section class="vocab-box"><div class="section-title">Key Vocabulary</div><div class="vocab-grid">
+            <div class="vocab-item"><strong>Ambulance</strong><span>Medical truck for sick/injured people.</span></div>
+            <div class="vocab-item"><strong>Dispatcher</strong><span>The person who answers the 911 call.</span></div>
+            <div class="vocab-item"><strong>Unconscious</strong><span>Not awake. Looks like sleeping, won't wake up.</span></div>
+            <div class="vocab-item"><strong>Bleeding</strong><span>Losing blood.</span></div>
+            <div class="vocab-item"><strong>Accident</strong><span>A crash (car crash).</span></div>
+            <div class="vocab-item"><strong>Address</strong><span>Your exact location.</span></div>
+        </div></section>
+        <section class="dialogue-container"><div class="section-title">Conversation</div>
+            <div class="speech-bubble speaker-a"><div class="speaker-label">Dispatcher</div><div>911, what is your emergency?</div></div>
+            <div class="speech-bubble speaker-b"><div class="speaker-label">Caller</div><div>I need an ambulance! My friend fell down the stairs.</div></div>
+            <div class="speech-bubble speaker-a"><div class="speaker-label">Dispatcher</div><div>Okay, stay calm. What is your address?</div></div>
+            <div class="speech-bubble speaker-b"><div class="speaker-label">Caller</div><div>We are at 123 Main Street, Apartment 4B.</div></div>
+            <div class="speech-bubble speaker-a"><div class="speaker-label">Dispatcher</div><div>The ambulance is on the way. Is your friend conscious?</div></div>
+            <div class="speech-bubble speaker-b"><div class="speaker-label">Caller</div><div>Yes, he is awake, but his leg is bleeding badly.</div></div>
+        </section>
+    </div>
+    <div class="page">
+        <header class="chapter-header"><div class="chapter-number">Chapter 15</div><h2 class="chapter-title">Emergencies & 911</h2><div class="page-type">Speaking Practice I</div></header>
+        <div class="activity-box"><div class="activity-header"><span class="activity-badge">Drill</span> Who do you need?</div>
+            <p class="instruction">Look at the problem. Tell the dispatcher who you need: <strong>Police, Fire, or Ambulance</strong>.</p>
+            <ul class="drill-list">
+                <li>1. "A man stole my bag!" &rarr; <em>"I need the police."</em></li>
+                <li>2. "There is smoke coming from the kitchen." &rarr; <span class="line-blank" style="width: 150px"></span></li>
+                <li>3. "My husband cannot breathe." &rarr; <span class="line-blank" style="width: 150px"></span></li>
+                <li>4. "Two cars crashed and someone is hurt." &rarr; <span class="line-blank" style="width: 150px"></span></li>
+            </ul>
+        </div>
+        <div class="activity-box"><div class="activity-header"><span class="activity-badge">Pair Work</span> Rapid Information</div>
+            <p class="instruction">In an emergency, you must speak clearly. Partner A asks the questions. Partner B answers with their REAL information immediately.</p>
+            <p><strong>A:</strong> "What is your full name?"<br><strong>A:</strong> "What is your phone number?"<br><strong>A:</strong> "What is your exact address right now?"</p>
+        </div>
+        <div class="answer-key">2. I need the fire department. 3. I need an ambulance. 4. I need police and an ambulance.</div>
+    </div>
+    <div class="page">
+        <header class="chapter-header"><div class="chapter-number">Chapter 15</div><h2 class="chapter-title">Emergencies & 911</h2><div class="page-type">Speaking Practice II</div></header>
+        <div class="activity-box"><div class="activity-header"><span class="activity-badge">Role Play</span> The Car Crash</div>
+            <div class="card-grid">
+                <div class="role-card"><strong>Student A: Caller</strong><br><br>You saw a car crash at the corner of Oak Street and 5th Avenue. Call 911. Tell them you need police and an ambulance. One driver is unconscious.</div>
+                <div class="role-card"><strong>Student B: 911 Dispatcher</strong><br><br>Ask: "911, what is your emergency?" Then ask: "What is your location?" and "Is anyone hurt?" Keep the caller calm.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================= -->
+    <!-- CHAPTER 16: SMALL TALK -->
+    <!-- ========================================= -->
+    <div class="page">
+        <header class="chapter-header"><div class="chapter-number">Chapter 16</div><h2 class="chapter-title">Small Talk</h2><div class="page-type">Vocabulary & Dialogue</div></header>
+        <section class="vocab-box"><div class="section-title">Key Vocabulary</div><div class="vocab-grid">
+            <div class="vocab-item"><strong>Small Talk</strong><span>Polite conversation about unimportant things.</span></div>
+            <div class="vocab-item"><strong>Weather</strong><span>Rain, sun, cold, hot. The easiest safe topic.</span></div>
+            <div class="vocab-item"><strong>Compliment</strong><span>Saying something nice about a person.</span></div>
+            <div class="vocab-item"><strong>Catch up</strong><span>To talk about what is new in life.</span></div>
+            <div class="vocab-item"><strong>Awkward</strong><span>Feeling uncomfortable.</span></div>
+            <div class="vocab-item"><strong>Excuse</strong><span>A polite reason to leave.</span></div>
+        </div></section>
+        <section class="dialogue-container"><div class="section-title">Conversation</div>
+            <div class="speech-bubble speaker-a"><div class="speaker-label">Neighbor 1</div><div>Hi David! How are you doing today?</div></div>
+            <div class="speech-bubble speaker-b"><div class="speaker-label">Neighbor 2</div><div>I'm doing well, thanks. It is a beautiful day, isn't it?</div></div>
+            <div class="speech-bubble speaker-a"><div class="speaker-label">Neighbor 1</div><div>Yes, finally some sunshine. Did you have a good weekend?</div></div>
+            <div class="speech-bubble speaker-b"><div class="speaker-label">Neighbor 2</div><div>It was great, very relaxing.</div></div>
+            <div class="speech-bubble speaker-a"><div class="speaker-label">Neighbor 1</div><div>That's good to hear. Well, I have to go to work now.</div></div>
+            <div class="speech-bubble speaker-b"><div class="speaker-label">Neighbor 2</div><div>Okay, it was nice talking to you. Have a great day!</div></div>
+        </section>
+    </div>
+    <div class="page">
+        <header class="chapter-header"><div class="chapter-number">Chapter 16</div><h2 class="chapter-title">Small Talk</h2><div class="page-type">Speaking Practice I</div></header>
+        <div class="activity-box"><div class="activity-header"><span class="activity-badge">Drill</span> Safe vs. Unsafe Topics</div>
+            <p class="instruction">In America/Canada, some topics are "unsafe" for strangers. Tell your partner if these are SAFE or UNSAFE to ask a neighbor.</p>
+            <ul class="drill-list">
+                <li>1. "How much money do you make?"</li>
+                <li>2. "Did you watch the sports game last night?"</li>
+                <li>3. "Who did you vote for in the election?"</li>
+                <li>4. "I like your shoes! Where did you get them?"</li>
+            </ul>
+        </div>
+        <div class="activity-box"><div class="activity-header"><span class="activity-badge">Drill</span> The Exit Strategy</div>
+            <p class="instruction">Practice interrupting a conversation politely to leave.</p>
+            <ul class="drill-list">
+                <li>"Well, I should let you go."</li>
+                <li>"Look at the time! I have to run."</li>
+                <li>"It was so nice catching up, but I have an appointment."</li>
+            </ul>
+        </div>
+        <div class="answer-key">1. Unsafe. 2. Safe. 3. Unsafe. 4. Safe.</div>
+    </div>
+    <div class="page">
+        <header class="chapter-header"><div class="chapter-number">Chapter 16</div><h2 class="chapter-title">Small Talk</h2><div class="page-type">Speaking Practice II</div></header>
+        <div class="activity-box"><div class="activity-header"><span class="activity-badge">Role Play</span> The Talkative Neighbor</div>
+            <div class="card-grid">
+                <div class="role-card"><strong>Student A: The Busy Person</strong><br><br>You are carrying heavy groceries. Your neighbor stops you. Listen for a minute, but then use an "Exit Strategy" phrase to end the conversation politely and go home.</div>
+                <div class="role-card"><strong>Student B: Talkative Neighbor</strong><br><br>You are lonely and love to talk. Talk about the weather, your cat, and the loud noise last night. Do not stop talking easily.</div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
